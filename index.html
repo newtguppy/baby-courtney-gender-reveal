@@ -48,7 +48,7 @@
           rgba(255, 224, 235, 0.96)
         );
 
-      padding: 24px 30px 20px;
+      padding: 18px 30px 15px;
 
       border-bottom:
         1px solid rgba(0, 0, 0, 0.05);
@@ -63,9 +63,9 @@
       color: #173f61;
 
       font-size:
-        clamp(24px, 2.2vw, 42px);
+        clamp(22px, 2vw, 38px);
 
-      margin-bottom: 5px;
+      margin-bottom: 3px;
     }
 
     .title {
@@ -77,18 +77,18 @@
         serif;
 
       font-size:
-        clamp(42px, 5vw, 88px);
+        clamp(38px, 4.2vw, 76px);
 
       color: #173f61;
 
-      line-height: 1.05;
+      line-height: 1.02;
     }
 
     .subtitle {
-      margin-top: 10px;
+      margin-top: 7px;
 
       font-size:
-        clamp(18px, 1.8vw, 30px);
+        clamp(16px, 1.5vw, 26px);
 
       color: #766b65;
     }
@@ -119,7 +119,7 @@
 
       position: relative;
 
-      padding: 32px;
+      padding: 22px 28px;
     }
 
     /* BOY */
@@ -127,7 +127,7 @@
     .boy {
       background:
         radial-gradient(
-          circle at 50% 35%,
+          circle at 50% 30%,
           #f9fdff 0%,
           #e7f5ff 48%,
           #d2edff 100%
@@ -151,7 +151,7 @@
     .girl {
       background:
         radial-gradient(
-          circle at 50% 35%,
+          circle at 50% 30%,
           #fffafd 0%,
           #fff0f5 48%,
           #ffdae7 100%
@@ -170,18 +170,94 @@
       background: #df7195;
     }
 
-    /* TEAM CONTENT */
+    /* BABY PHOTO CARDS */
 
-    .icon {
-      font-size:
-        clamp(40px, 4vw, 68px);
-
+    .baby-photo-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
       margin-bottom: 10px;
     }
 
+    .baby-photo-frame {
+      width: clamp(95px, 8vw, 145px);
+      height: clamp(95px, 8vw, 145px);
+
+      border-radius: 50%;
+      overflow: hidden;
+
+      background: white;
+
+      border:
+        5px solid rgba(255, 255, 255, 0.95);
+
+      box-shadow:
+        0 8px 22px rgba(0, 0, 0, 0.13);
+    }
+
+    .baby-photo-frame img {
+      width: 100%;
+      height: 100%;
+
+      object-fit: cover;
+
+      object-position: center 30%;
+
+      display: block;
+    }
+
+    .baby-photo-label {
+      margin-top: 8px;
+
+      font-family:
+        Georgia,
+        'Times New Roman',
+        serif;
+
+      font-size:
+        clamp(14px, 1.1vw, 20px);
+
+      font-style: italic;
+
+      color: #716661;
+    }
+
+    .boy .baby-photo-frame {
+      box-shadow:
+        0 8px 22px rgba(39, 135, 196, 0.20);
+    }
+
+    .girl .baby-photo-frame {
+      box-shadow:
+        0 8px 22px rgba(223, 113, 149, 0.24);
+    }
+
+    /* DAD PLACEHOLDER */
+
+    .dad-placeholder {
+      width: 100%;
+      height: 100%;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      background:
+        linear-gradient(
+          145deg,
+          #f9fdff,
+          #dcefff
+        );
+
+      font-size:
+        clamp(38px, 4vw, 62px);
+    }
+
+    /* TEAM CONTENT */
+
     .team-label {
       font-size:
-        clamp(30px, 3vw, 54px);
+        clamp(27px, 2.6vw, 48px);
 
       font-weight: 700;
 
@@ -192,13 +268,13 @@
 
     .vote-count {
       font-size:
-        clamp(110px, 15vw, 260px);
+        clamp(90px, 11vw, 205px);
 
       font-weight: 800;
 
-      line-height: 0.9;
+      line-height: 0.88;
 
-      margin: 20px 0 10px;
+      margin: 12px 0 6px;
     }
 
     .votes-label {
@@ -209,14 +285,14 @@
       color: #756d69;
 
       font-size:
-        clamp(14px, 1.4vw, 23px);
+        clamp(13px, 1.2vw, 21px);
     }
 
     .percentage {
-      margin-top: 14px;
+      margin-top: 8px;
 
       font-size:
-        clamp(30px, 3vw, 52px);
+        clamp(27px, 2.5vw, 45px);
 
       font-weight: 700;
 
@@ -227,11 +303,11 @@
 
     .progress-container {
       width:
-        min(72%, 560px);
+        min(72%, 520px);
 
-      height: 18px;
+      height: 15px;
 
-      margin-top: 24px;
+      margin-top: 16px;
 
       border-radius: 20px;
 
@@ -261,7 +337,7 @@
     .footer {
       background: white;
 
-      min-height: 105px;
+      min-height: 84px;
 
       display: flex;
 
@@ -271,7 +347,7 @@
 
       gap: 90px;
 
-      padding: 18px 30px;
+      padding: 12px 30px;
 
       border-top:
         1px solid #eee7e2;
@@ -289,7 +365,7 @@
       letter-spacing: 2px;
 
       font-size:
-        clamp(12px, 1vw, 18px);
+        clamp(11px, 0.9vw, 16px);
     }
 
     .footer-value {
@@ -298,9 +374,9 @@
       font-weight: 800;
 
       font-size:
-        clamp(28px, 2.5vw, 45px);
+        clamp(24px, 2.1vw, 38px);
 
-      margin-top: 4px;
+      margin-top: 3px;
     }
 
     .leader {
@@ -312,13 +388,13 @@
     .status {
       position: fixed;
 
-      bottom: 7px;
+      bottom: 5px;
 
-      right: 10px;
+      right: 8px;
 
       color: #aaa;
 
-      font-size: 10px;
+      font-size: 9px;
     }
 
     /* MOBILE */
@@ -334,12 +410,12 @@
       }
 
       .team {
-        min-height: 390px;
+        min-height: 420px;
       }
 
       .footer {
         flex-direction: column;
-        gap: 10px;
+        gap: 8px;
       }
     }
   </style>
@@ -372,8 +448,18 @@
 
       <div class="team boy">
 
-        <div class="icon">
-          💙
+        <div class="baby-photo-card">
+
+          <div class="baby-photo-frame">
+            <div class="dad-placeholder">
+              💙
+            </div>
+          </div>
+
+          <div class="baby-photo-label">
+            Dad as a Baby
+          </div>
+
         </div>
 
         <div class="team-label">
@@ -414,8 +500,19 @@
 
       <div class="team girl">
 
-        <div class="icon">
-          🩷
+        <div class="baby-photo-card">
+
+          <div class="baby-photo-frame">
+            <img
+              src="mom-baby.jpg"
+              alt="Mom as a baby"
+            >
+          </div>
+
+          <div class="baby-photo-label">
+            Mom as a Baby
+          </div>
+
         </div>
 
         <div class="team-label">
@@ -503,43 +600,25 @@
   <script>
 
     /*
-     * IMPORTANT:
-     *
-     * Replace this with your actual
-     * Cloudflare Worker URL.
+     * REPLACE THIS VALUE WITH YOUR
+     * ACTUAL CLOUDFLARE WORKER URL.
      */
 
     const API_URL =
-      'https://baby-courtney-vote-api.tripods-timbre-2h.workers.dev';
+      'https://baby-courtney-vote-api.tripods-timbre-2h.workers.dev/';
 
 
     /*
-     * Check for updated votes
-     * every 3 seconds.
+     * Check the API every 3 seconds.
      */
 
     const REFRESH_INTERVAL =
       3000;
 
 
-    /*
-     * Keeps track of the previous
-     * totals so future animations
-     * can detect new votes.
-     */
-
-    let previousBoy = null;
-    let previousGirl = null;
-
-
     async function loadVotes() {
 
       try {
-
-        /*
-         * Add a cache-busting parameter
-         * to every request.
-         */
 
         const separator =
           API_URL.includes('?')
@@ -613,14 +692,6 @@
         });
 
 
-        previousBoy =
-          boy;
-
-
-        previousGirl =
-          girl;
-
-
         document
           .getElementById('status')
           .textContent =
@@ -650,10 +721,6 @@
 
     function updateDashboard(data) {
 
-      /*
-       * COUNTS
-       */
-
       setText(
         'boyCount',
         data.boy
@@ -672,10 +739,6 @@
       );
 
 
-      /*
-       * PERCENTAGES
-       */
-
       setText(
         'boyPercent',
         data.boyPercent + '%'
@@ -687,10 +750,6 @@
         data.girlPercent + '%'
       );
 
-
-      /*
-       * PROGRESS BARS
-       */
 
       document
         .getElementById(
@@ -707,10 +766,6 @@
         .style.width =
           data.girlPercent + '%';
 
-
-      /*
-       * LEADER
-       */
 
       let leaderText =
         'Waiting for votes';
@@ -781,17 +836,8 @@
     }
 
 
-    /*
-     * Load immediately when
-     * the page opens.
-     */
-
     loadVotes();
 
-
-    /*
-     * Then refresh automatically.
-     */
 
     setInterval(
       loadVotes,
