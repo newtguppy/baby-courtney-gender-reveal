@@ -1,77 +1,1101 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Baby Courtney Gender Prediction</title>
-<style>
-*{box-sizing:border-box}
-html,body{margin:0;width:100%;height:100%;font-family:Arial,Helvetica,sans-serif;background:#fffaf7}
-body{overflow:hidden}
-.dashboard{width:100vw;height:100vh;display:flex;flex-direction:column}
-.header{flex:0 0 auto;text-align:center;background:linear-gradient(90deg,rgba(219,239,255,.96),rgba(255,255,255,.98) 50%,rgba(255,224,235,.96));padding:14px 30px 12px;border-bottom:1px solid rgba(0,0,0,.05)}
-.baby-name{font-family:Georgia,"Times New Roman",serif;color:#173f61;font-size:clamp(20px,1.8vw,34px);margin-bottom:1px}
-.title{margin:0;font-family:Georgia,"Times New Roman",serif;font-size:clamp(36px,4vw,70px);color:#173f61;line-height:1}
-.subtitle{margin-top:6px;font-size:clamp(15px,1.35vw,24px);color:#766b65}
-.vote-area{flex:1 1 auto;display:grid;grid-template-columns:1fr 1fr;min-height:0}
-.team{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;position:relative;padding:16px 28px;min-height:0}
-.boy{background:radial-gradient(circle at 50% 30%,#f9fdff 0%,#e7f5ff 48%,#d2edff 100%)}
-.girl{background:radial-gradient(circle at 50% 30%,#fffafd 0%,#fff0f5 48%,#ffdae7 100%)}
-.boy .team-label{color:#2787c4}.girl .team-label{color:#df7195}
-.boy .vote-count{color:#1479b9}.girl .vote-count{color:#d95e88}
-.boy .progress{background:#278dcc}.girl .progress{background:#df7195}
-.baby-photo-card{display:flex;flex-direction:column;align-items:center;margin-bottom:8px}
-.baby-photo-frame{width:clamp(150px,12vw,225px);height:clamp(150px,12vw,225px);border-radius:50%;overflow:hidden;background:white;border:6px solid rgba(255,255,255,.96);box-shadow:0 10px 28px rgba(0,0,0,.13)}
-.baby-photo-frame img{width:100%;height:100%;object-fit:cover;display:block;object-position:center 30%}
-.baby-photo-label{margin-top:8px;font-family:Georgia,"Times New Roman",serif;font-size:clamp(16px,1.3vw,24px);font-style:italic;color:#716661}
-.boy .baby-photo-frame{box-shadow:0 10px 28px rgba(39,135,196,.22)}
-.girl .baby-photo-frame{box-shadow:0 10px 28px rgba(223,113,149,.26)}
-.team-label{font-size:clamp(28px,2.5vw,46px);font-weight:700;text-transform:uppercase;letter-spacing:4px}
-.vote-count{font-size:clamp(80px,9vw,165px);font-weight:800;line-height:.88;margin:10px 0 5px}
-.votes-label{text-transform:uppercase;letter-spacing:3px;color:#756d69;font-size:clamp(12px,1vw,18px)}
-.percentage{margin-top:6px;font-size:clamp(26px,2.2vw,40px);font-weight:700;color:#504845}
-.progress-container{width:min(72%,520px);height:14px;margin-top:12px;border-radius:20px;overflow:hidden;background:rgba(255,255,255,.82);box-shadow:inset 0 1px 4px rgba(0,0,0,.08)}
-.progress{height:100%;width:0;border-radius:20px;transition:width .7s ease}
-.footer{flex:0 0 170px;background:white;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:52px;padding:12px 46px;border-top:1px solid #eee7e2}
-.footer-block{text-align:center}.footer-block:first-child{justify-self:end}.footer-block:last-child{justify-self:start}
-.footer-label{color:#82766f;text-transform:uppercase;letter-spacing:2px;font-size:clamp(11px,.85vw,15px)}
-.footer-value{color:#173f61;font-weight:800;font-size:clamp(24px,2vw,36px);margin-top:3px}.leader{color:#625853}
-.qr-block{display:flex;align-items:center;gap:18px}.qr-code{width:145px;height:145px;object-fit:contain;background:white;border-radius:12px;padding:5px;box-shadow:0 5px 18px rgba(0,0,0,.12)}
-.qr-copy{text-align:left;max-width:220px}.qr-title{font-size:clamp(20px,1.55vw,28px);font-weight:800;color:#173f61;text-transform:uppercase;letter-spacing:1px}
-.qr-subtitle{margin-top:5px;color:#756d69;font-size:clamp(13px,1vw,18px);line-height:1.3}
-.status{position:fixed;bottom:5px;right:8px;color:#aaa;font-size:9px}
-@media(max-width:700px){body{overflow:auto}.dashboard{height:auto;min-height:100vh}.vote-area{grid-template-columns:1fr}.team{min-height:500px}.footer{display:flex;flex-direction:column;gap:18px;padding:24px}.footer-block:first-child,.footer-block:last-child{justify-self:auto}.qr-block{flex-direction:column}.qr-copy{text-align:center}}
-</style>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>Baby Courtney Gender Prediction</title>
+
+  <style>
+    :root {
+      --navy: #173f61;
+      --text: #625853;
+      --muted: #82766f;
+      --boy: #2787c4;
+      --boy-dark: #1479b9;
+      --girl: #df7195;
+      --girl-dark: #d95e88;
+      --footer-border: #eee7e2;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      margin: 0;
+      width: 100%;
+      height: 100%;
+      font-family: Arial, Helvetica, sans-serif;
+      background: #fffaf7;
+    }
+
+    body {
+      overflow: hidden;
+    }
+
+    .dashboard {
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* HEADER */
+
+    .header {
+      flex: 0 0 auto;
+      text-align: center;
+
+      background:
+        linear-gradient(
+          90deg,
+          rgba(219, 239, 255, 0.96),
+          rgba(255, 255, 255, 0.98) 50%,
+          rgba(255, 224, 235, 0.96)
+        );
+
+      padding: 14px 30px 12px;
+
+      border-bottom:
+        1px solid rgba(0, 0, 0, 0.05);
+    }
+
+    .baby-name {
+      margin-bottom: 1px;
+
+      font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+      color: var(--navy);
+
+      font-size:
+        clamp(20px, 1.8vw, 34px);
+    }
+
+    .title {
+      margin: 0;
+
+      font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+      color: var(--navy);
+
+      font-size:
+        clamp(36px, 4vw, 70px);
+
+      line-height: 1;
+    }
+
+    .subtitle {
+      margin-top: 6px;
+
+      color: #766b65;
+
+      font-size:
+        clamp(15px, 1.35vw, 24px);
+    }
+
+    /* MAIN */
+
+    .vote-area {
+      flex: 1 1 auto;
+
+      display: grid;
+
+      grid-template-columns:
+        1fr 1fr;
+
+      min-height: 0;
+    }
+
+    .team {
+      position: relative;
+
+      display: flex;
+
+      flex-direction: column;
+
+      align-items: center;
+
+      justify-content: center;
+
+      min-height: 0;
+
+      padding: 16px 28px;
+
+      text-align: center;
+    }
+
+    /* BOY */
+
+    .boy {
+      background:
+        radial-gradient(
+          circle at 50% 30%,
+          #f9fdff 0%,
+          #e7f5ff 48%,
+          #d2edff 100%
+        );
+    }
+
+    .boy .team-label {
+      color: var(--boy);
+    }
+
+    .boy .vote-count {
+      color: var(--boy-dark);
+    }
+
+    .boy .progress {
+      background: var(--boy);
+    }
+
+    /* GIRL */
+
+    .girl {
+      background:
+        radial-gradient(
+          circle at 50% 30%,
+          #fffafd 0%,
+          #fff0f5 48%,
+          #ffdae7 100%
+        );
+    }
+
+    .girl .team-label {
+      color: var(--girl);
+    }
+
+    .girl .vote-count {
+      color: var(--girl-dark);
+    }
+
+    .girl .progress {
+      background: var(--girl);
+    }
+
+    /* BABY PHOTO CARDS */
+
+    .baby-photo-card {
+      display: flex;
+
+      flex-direction: column;
+
+      align-items: center;
+
+      margin-bottom: 8px;
+    }
+
+    .baby-photo-frame {
+      width:
+        clamp(150px, 12vw, 225px);
+
+      height:
+        clamp(150px, 12vw, 225px);
+
+      overflow: hidden;
+
+      background: white;
+
+      border:
+        6px solid rgba(255, 255, 255, 0.96);
+
+      border-radius: 50%;
+
+      box-shadow:
+        0 10px 28px rgba(0, 0, 0, 0.13);
+    }
+
+    .baby-photo-frame img {
+      display: block;
+
+      width: 100%;
+
+      height: 100%;
+
+      object-fit: cover;
+
+      object-position:
+        center 30%;
+    }
+
+    .baby-photo-label {
+      margin-top: 8px;
+
+      font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+      color: #716661;
+
+      font-size:
+        clamp(16px, 1.3vw, 24px);
+
+      font-style: italic;
+    }
+
+    .boy .baby-photo-frame {
+      box-shadow:
+        0 10px 28px rgba(39, 135, 196, 0.22);
+    }
+
+    .girl .baby-photo-frame {
+      box-shadow:
+        0 10px 28px rgba(223, 113, 149, 0.26);
+    }
+
+    /* TEAM CONTENT */
+
+    .team-label {
+      font-size:
+        clamp(28px, 2.5vw, 46px);
+
+      font-weight: 700;
+
+      letter-spacing: 4px;
+
+      text-transform: uppercase;
+    }
+
+    .vote-count {
+      margin: 10px 0 5px;
+
+      font-size:
+        clamp(80px, 9vw, 165px);
+
+      font-weight: 800;
+
+      line-height: 0.88;
+    }
+
+    .votes-label {
+      color: #756d69;
+
+      font-size:
+        clamp(12px, 1vw, 18px);
+
+      letter-spacing: 3px;
+
+      text-transform: uppercase;
+    }
+
+    .percentage {
+      margin-top: 6px;
+
+      color: #504845;
+
+      font-size:
+        clamp(26px, 2.2vw, 40px);
+
+      font-weight: 700;
+    }
+
+    /* PROGRESS */
+
+    .progress-container {
+      width:
+        min(72%, 520px);
+
+      height: 14px;
+
+      margin-top: 12px;
+
+      overflow: hidden;
+
+      background:
+        rgba(255, 255, 255, 0.82);
+
+      border-radius: 20px;
+
+      box-shadow:
+        inset 0 1px 4px rgba(0, 0, 0, 0.08);
+    }
+
+    .progress {
+      width: 0;
+
+      height: 100%;
+
+      border-radius: 20px;
+
+      transition:
+        width 0.7s ease;
+    }
+
+    /* FOOTER */
+
+    .footer {
+      flex: 0 0 178px;
+
+      display: grid;
+
+      grid-template-columns:
+        minmax(200px, 1fr)
+        auto
+        minmax(200px, 1fr);
+
+      align-items: center;
+
+      gap: 46px;
+
+      padding: 12px 46px;
+
+      background: white;
+
+      border-top:
+        1px solid var(--footer-border);
+    }
+
+    .footer-block {
+      width: 100%;
+
+      text-align: center;
+    }
+
+    .footer-block:first-child,
+    .footer-block:last-child {
+      justify-self: center;
+    }
+
+    .footer-label {
+      color: var(--muted);
+
+      font-size:
+        clamp(11px, 0.85vw, 15px);
+
+      letter-spacing: 2px;
+
+      text-transform: uppercase;
+    }
+
+    .footer-value {
+      margin-top: 3px;
+
+      color: var(--navy);
+
+      font-size:
+        clamp(24px, 2vw, 36px);
+
+      font-weight: 800;
+    }
+
+    .leader {
+      color: var(--navy);
+    }
+
+    /* QR AND DIRECT VOTING LINK */
+
+    .qr-block {
+      display: flex;
+
+      align-items: center;
+
+      gap: 18px;
+    }
+
+    .qr-image-link {
+      display: block;
+
+      flex: 0 0 auto;
+
+      border-radius: 12px;
+
+      transition:
+        transform 0.18s ease,
+        box-shadow 0.18s ease;
+    }
+
+    .qr-image-link:hover,
+    .qr-image-link:focus-visible {
+      transform:
+        translateY(-2px);
+
+      outline: none;
+
+      box-shadow:
+        0 7px 22px rgba(23, 63, 97, 0.18);
+    }
+
+    .qr-code {
+      display: block;
+
+      width: 145px;
+
+      height: 145px;
+
+      padding: 5px;
+
+      object-fit: contain;
+
+      background: white;
+
+      border-radius: 12px;
+
+      box-shadow:
+        0 5px 18px rgba(0, 0, 0, 0.12);
+    }
+
+    .qr-copy {
+      max-width: 250px;
+
+      text-align: left;
+    }
+
+    .qr-title {
+      color: var(--navy);
+
+      font-size:
+        clamp(20px, 1.55vw, 28px);
+
+      font-weight: 800;
+
+      letter-spacing: 1px;
+
+      text-transform: uppercase;
+    }
+
+    .qr-subtitle {
+      margin-top: 4px;
+
+      color: #756d69;
+
+      font-size:
+        clamp(13px, 1vw, 18px);
+
+      line-height: 1.3;
+    }
+
+    .vote-link {
+      display: inline-flex;
+
+      align-items: center;
+
+      justify-content: center;
+
+      margin-top: 10px;
+
+      padding: 8px 15px;
+
+      color: white;
+
+      background: var(--navy);
+
+      border:
+        1px solid var(--navy);
+
+      border-radius: 999px;
+
+      font-size:
+        clamp(12px, 0.9vw, 15px);
+
+      font-weight: 700;
+
+      line-height: 1;
+
+      text-decoration: none;
+
+      transition:
+        background 0.18s ease,
+        color 0.18s ease,
+        transform 0.18s ease;
+    }
+
+    .vote-link:hover,
+    .vote-link:focus-visible {
+      color: var(--navy);
+
+      background: white;
+
+      outline: none;
+
+      transform:
+        translateY(-1px);
+    }
+
+    /* STATUS: HIDDEN UNLESS THERE IS A CONNECTION ERROR */
+
+    .status {
+      display: none;
+
+      position: fixed;
+
+      right: 14px;
+
+      bottom: 12px;
+
+      z-index: 100;
+    }
+
+    .status.error {
+      display: block;
+
+      padding: 8px 12px;
+
+      color: #7a2530;
+
+      background:
+        rgba(255, 255, 255, 0.96);
+
+      border:
+        1px solid rgba(122, 37, 48, 0.18);
+
+      border-radius: 8px;
+
+      font-size: 13px;
+
+      font-weight: 700;
+
+      box-shadow:
+        0 4px 14px rgba(0, 0, 0, 0.10);
+    }
+
+    /* MOBILE */
+
+    @media (max-width: 700px) {
+      body {
+        overflow: auto;
+      }
+
+      .dashboard {
+        height: auto;
+
+        min-height: 100vh;
+      }
+
+      .vote-area {
+        grid-template-columns: 1fr;
+      }
+
+      .team {
+        min-height: 500px;
+      }
+
+      .footer {
+        display: flex;
+
+        flex-direction: column;
+
+        gap: 18px;
+
+        padding: 24px;
+      }
+
+      .qr-block {
+        flex-direction: column;
+      }
+
+      .qr-copy {
+        text-align: center;
+      }
+    }
+  </style>
 </head>
+
 <body>
-<main class="dashboard">
-<header class="header">
-<div class="baby-name">Baby Courtney</div>
-<h1 class="title">What's Your Prediction?</h1>
-<div class="subtitle">Boy or Girl? Cast Your Vote!</div>
-</header>
 
-<section class="vote-area">
-<div class="team boy">
-<div class="baby-photo-card">
-<div class="baby-photo-frame"><img src="dad-baby.JPEG?v=3" alt="Dad as a baby"></div>
-<div class="baby-photo-label">Dad as a Baby</div>
-</div>
-<div class="team-label">Team Boy</div>
-<div class="vote-count" id="boyCount">0</div>
-<div class="votes-label">Votes</div>
-<div class="percentage" id="boyPercent">0%</div>
-<div class="progress-container"><div class="progress" id="boyProgress"></div></div>
-</div>
+  <main class="dashboard">
 
-<div class="team girl">
-<div class="baby-photo-card">
-<div class="baby-photo-frame"><img src="mom-baby.jpg?v=2" alt="Mom as a baby"></div>
-<div class="baby-photo-label">Mom as a Baby</div>
-</div>
-<div class="team-label">Team Girl</div>
-<div class="vote-count" id="girlCount">0</div>
-<div class="votes-label">Votes</div>
+    <header class="header">
+
+      <div class="baby-name">
+        Baby Courtney
+      </div>
+
+      <h1 class="title">
+        What's Your Prediction?
+      </h1>
+
+      <div class="subtitle">
+        Boy or Girl? Cast Your Vote!
+      </div>
+
+    </header>
+
+
+    <section class="vote-area">
+
+      <!-- BOY -->
+
+      <div class="team boy">
+
+        <div class="baby-photo-card">
+
+          <div class="baby-photo-frame">
+            <img
+              src="dad-baby.JPEG?v=4"
+              alt="Dad as a baby"
+            >
+          </div>
+
+          <div class="baby-photo-label">
+            Dad as a Baby
+          </div>
+
+        </div>
+
+        <div class="team-label">
+          Team Boy
+        </div>
+
+        <div
+          class="vote-count"
+          id="boyCount"
+        >
+          0
+        </div>
+
+        <div class="votes-label">
+          Votes
+        </div>
+
+        <div
+          class="percentage"
+          id="boyPercent"
+        >
+          0%
+        </div>
+
+        <div class="progress-container">
+
+          <div
+            class="progress"
+            id="boyProgress"
+          ></div>
+
+        </div>
+
+      </div>
+
+
+      <!-- GIRL -->
+
+      <div class="team girl">
+
+        <div class="baby-photo-card">
+
+          <div class="baby-photo-frame">
+            <img
+              src="mom-baby.jpg?v=3"
+              alt="Mom as a baby"
+            >
+          </div>
+
+          <div class="baby-photo-label">
+            Mom as a Baby
+          </div>
+
+        </div>
+
+        <div class="team-label">
+          Team Girl
+        </div>
+
+        <div
+          class="vote-count"
+          id="girlCount"
+        >
+          0
+        </div>
+
+        <div class="votes-label">
+          Votes
+        </div>
+
+        <div
+          class="percentage"
+          id="girlPercent"
+        >
+          0%
+        </div>
+
+        <div class="progress-container">
+
+          <div
+            class="progress"
+            id="girlProgress"
+          ></div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <footer class="footer">
+
+      <!-- TOTAL -->
+
+      <div class="footer-block">
+
+        <div class="footer-label">
+          Predictions Cast
+        </div>
+
+        <div
+          class="footer-value"
+          id="totalCount"
+        >
+          0
+        </div>
+
+      </div>
+
+
+      <!-- QR CODE AND DESKTOP LINK -->
+
+      <div class="qr-block">
+
+        <a
+          class="qr-image-link"
+          href="https://forms.gle/dVeoDoYPM2qgviJa9"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Open the Baby Courtney prediction form"
+        >
+          <img
+            class="qr-code"
+            src="vote-qr.png?v=2"
+            alt="Scan to cast your gender prediction"
+          >
+        </a>
+
+        <div class="qr-copy">
+
+          <div class="qr-title">
+            Scan to Vote
+          </div>
+
+          <div class="qr-subtitle">
+            Boy or girl?<br>
+            Cast your prediction!
+          </div>
+
+          <a
+            class="vote-link"
+            href="https://forms.gle/dVeoDoYPM2qgviJa9"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Open Voting Form
+          </a>
+
+        </div>
+
+      </div>
+
+
+      <!-- STATUS OR LEADER -->
+
+      <div class="footer-block">
+
+        <div
+          class="footer-label"
+          id="leaderLabel"
+        >
+          Voting Status
+        </div>
+
+        <div
+          class="footer-value leader"
+          id="leader"
+        >
+          Voting Is Open
+        </div>
+
+      </div>
+
+    </footer>
+
+  </main>
+
+
+  <div
+    class="status"
+    id="status"
+    role="status"
+    aria-live="polite"
+  ></div>
+
+
+  <script>
+    const API_URL =
+      'https://baby-courtney-vote-api.tripods-timbre-2h.workers.dev';
+
+    const REFRESH_INTERVAL =
+      3000;
+
+
+    async function loadVotes() {
+
+      try {
+
+        const separator =
+          API_URL.includes('?')
+            ? '&'
+            : '?';
+
+
+        const url =
+          API_URL +
+          separator +
+          '_=' +
+          Date.now();
+
+
+        const response =
+          await fetch(
+            url,
+            {
+              cache: 'no-store'
+            }
+          );
+
+
+        if (!response.ok) {
+
+          throw new Error(
+            'HTTP ' +
+            response.status
+          );
+
+        }
+
+
+        const data =
+          await response.json();
+
+
+        const boy =
+          Number(data.boy) || 0;
+
+
+        const girl =
+          Number(data.girl) || 0;
+
+
+        const total =
+          Number(data.total) ||
+          boy + girl;
+
+
+        const boyPercent =
+          total
+            ? Math.round(
+                (boy / total) * 100
+              )
+            : 0;
+
+
+        const girlPercent =
+          total
+            ? 100 - boyPercent
+            : 0;
+
+
+        updateDashboard({
+          boy,
+          girl,
+          total,
+          boyPercent,
+          girlPercent
+        });
+
+
+        const status =
+          document.getElementById(
+            'status'
+          );
+
+
+        status.textContent =
+          '';
+
+
+        status.className =
+          'status';
+
+      }
+
+      catch (error) {
+
+        console.error(
+          'Vote refresh failed:',
+          error
+        );
+
+
+        const status =
+          document.getElementById(
+            'status'
+          );
+
+
+        status.textContent =
+          'Connection lost. Reconnecting...';
+
+
+        status.className =
+          'status error';
+
+      }
+
+    }
+
+
+    function updateDashboard(data) {
+
+      setText(
+        'boyCount',
+        data.boy
+      );
+
+
+      setText(
+        'girlCount',
+        data.girl
+      );
+
+
+      setText(
+        'totalCount',
+        data.total
+      );
+
+
+      setText(
+        'boyPercent',
+        data.boyPercent + '%'
+      );
+
+
+      setText(
+        'girlPercent',
+        data.girlPercent + '%'
+      );
+
+
+      document
+        .getElementById(
+          'boyProgress'
+        )
+        .style.width =
+          data.boyPercent + '%';
+
+
+      document
+        .getElementById(
+          'girlProgress'
+        )
+        .style.width =
+          data.girlPercent + '%';
+
+
+      let leaderLabel =
+        'Voting Status';
+
+
+      let leaderText =
+        'Voting Is Open';
+
+
+      if (data.total > 0) {
+
+        leaderLabel =
+          'Current Leader';
+
+
+        if (
+          data.boy >
+          data.girl
+        ) {
+
+          const difference =
+            data.boy -
+            data.girl;
+
+
+          leaderText =
+            'Team Boy +' +
+            difference;
+
+        }
+
+        else if (
+          data.girl >
+          data.boy
+        ) {
+
+          const difference =
+            data.girl -
+            data.boy;
+
+
+          leaderText =
+            'Team Girl +' +
+            difference;
+
+        }
+
+        else {
+
+          leaderText =
+            "It's a Tie!";
+
+        }
+
+      }
+
+
+      setText(
+        'leaderLabel',
+        leaderLabel
+      );
+
+
+      setText(
+        'leader',
+        leaderText
+      );
+
+    }
+
+
+    function setText(
+      id,
+      value
+    ) {
+
+      document
+        .getElementById(id)
+        .textContent =
+          value;
+
+    }
+
+
+    loadVotes();
+
+
+    setInterval(
+      loadVotes,
+      REFRESH_INTERVAL
+    );
+  </script>
+
+</body>
+</html>
 <div class="percentage" id="girlPercent">0%</div>
 <div class="progress-container"><div class="progress" id="girlProgress"></div></div>
 </div>
