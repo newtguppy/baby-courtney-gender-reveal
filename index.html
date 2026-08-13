@@ -39,31 +39,45 @@
 
     .header {
       text-align: center;
+
       background:
         linear-gradient(
           90deg,
-          rgba(219, 239, 255, 0.95),
+          rgba(219, 239, 255, 0.96),
           rgba(255, 255, 255, 0.98) 50%,
-          rgba(255, 224, 235, 0.95)
+          rgba(255, 224, 235, 0.96)
         );
 
-      padding: 26px 30px 22px;
-      border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+      padding: 24px 30px 20px;
+
+      border-bottom:
+        1px solid rgba(0, 0, 0, 0.05);
     }
 
     .baby-name {
-      font-family: Georgia, 'Times New Roman', serif;
+      font-family:
+        Georgia,
+        'Times New Roman',
+        serif;
+
       color: #173f61;
-      font-size: clamp(24px, 2.3vw, 42px);
-      margin-bottom: 4px;
+
+      font-size:
+        clamp(24px, 2.2vw, 42px);
+
+      margin-bottom: 5px;
     }
 
     .title {
       margin: 0;
 
-      font-family: Georgia, 'Times New Roman', serif;
+      font-family:
+        Georgia,
+        'Times New Roman',
+        serif;
 
-      font-size: clamp(42px, 5vw, 88px);
+      font-size:
+        clamp(42px, 5vw, 88px);
 
       color: #173f61;
 
@@ -73,7 +87,8 @@
     .subtitle {
       margin-top: 10px;
 
-      font-size: clamp(18px, 1.8vw, 30px);
+      font-size:
+        clamp(18px, 1.8vw, 30px);
 
       color: #766b65;
     }
@@ -85,7 +100,8 @@
 
       display: grid;
 
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns:
+        1fr 1fr;
 
       min-height: 0;
     }
@@ -103,7 +119,7 @@
 
       position: relative;
 
-      padding: 35px;
+      padding: 32px;
     }
 
     /* BOY */
@@ -157,12 +173,15 @@
     /* TEAM CONTENT */
 
     .icon {
-      font-size: clamp(42px, 4vw, 70px);
+      font-size:
+        clamp(40px, 4vw, 68px);
+
       margin-bottom: 10px;
     }
 
     .team-label {
-      font-size: clamp(30px, 3vw, 54px);
+      font-size:
+        clamp(30px, 3vw, 54px);
 
       font-weight: 700;
 
@@ -172,13 +191,14 @@
     }
 
     .vote-count {
-      font-size: clamp(110px, 15vw, 260px);
+      font-size:
+        clamp(110px, 15vw, 260px);
 
       font-weight: 800;
 
       line-height: 0.9;
 
-      margin: 22px 0 12px;
+      margin: 20px 0 10px;
     }
 
     .votes-label {
@@ -188,13 +208,15 @@
 
       color: #756d69;
 
-      font-size: clamp(14px, 1.4vw, 23px);
+      font-size:
+        clamp(14px, 1.4vw, 23px);
     }
 
     .percentage {
-      margin-top: 15px;
+      margin-top: 14px;
 
-      font-size: clamp(30px, 3vw, 52px);
+      font-size:
+        clamp(30px, 3vw, 52px);
 
       font-weight: 700;
 
@@ -204,20 +226,23 @@
     /* PROGRESS */
 
     .progress-container {
-      width: min(72%, 560px);
+      width:
+        min(72%, 560px);
 
       height: 18px;
 
-      margin-top: 25px;
+      margin-top: 24px;
 
       border-radius: 20px;
 
       overflow: hidden;
 
-      background: rgba(255, 255, 255, 0.8);
+      background:
+        rgba(255, 255, 255, 0.8);
 
       box-shadow:
-        inset 0 1px 4px rgba(0, 0, 0, 0.08);
+        inset 0 1px 4px
+        rgba(0, 0, 0, 0.08);
     }
 
     .progress {
@@ -227,7 +252,8 @@
 
       border-radius: 20px;
 
-      transition: width 0.7s ease;
+      transition:
+        width 0.7s ease;
     }
 
     /* FOOTER */
@@ -235,7 +261,7 @@
     .footer {
       background: white;
 
-      min-height: 110px;
+      min-height: 105px;
 
       display: flex;
 
@@ -243,11 +269,12 @@
 
       align-items: center;
 
-      gap: 80px;
+      gap: 90px;
 
       padding: 18px 30px;
 
-      border-top: 1px solid #eee7e2;
+      border-top:
+        1px solid #eee7e2;
     }
 
     .footer-block {
@@ -261,7 +288,8 @@
 
       letter-spacing: 2px;
 
-      font-size: clamp(12px, 1vw, 18px);
+      font-size:
+        clamp(12px, 1vw, 18px);
     }
 
     .footer-value {
@@ -269,7 +297,8 @@
 
       font-weight: 800;
 
-      font-size: clamp(28px, 2.5vw, 45px);
+      font-size:
+        clamp(28px, 2.5vw, 45px);
 
       margin-top: 4px;
     }
@@ -312,7 +341,6 @@
         flex-direction: column;
         gap: 10px;
       }
-
     }
   </style>
 </head>
@@ -475,19 +503,33 @@
   <script>
 
     /*
-     * Replace the value below with the
-     * published CSV URL from Google Sheets.
+     * IMPORTANT:
+     *
+     * Replace this with your actual
+     * Cloudflare Worker URL.
      */
 
-    const CSV_URL =
-      'https://docs.google.com/spreadsheets/d/e/2PACX-1vQrDL71DvQvxOFS2BAHV7cE-Y5zQaCYNnq45DztSdMlUpqANLt_vYnR8IqiIt3PFn4mwDj2E5B9e68c/pub?gid=319020586&single=true&output=csv';
+    const API_URL =
+      'YOUR_CLOUDFLARE_WORKER_URL';
 
 
     /*
-     * Refresh every 3 seconds.
+     * Check for updated votes
+     * every 3 seconds.
      */
 
-    const REFRESH_INTERVAL = 3000;
+    const REFRESH_INTERVAL =
+      3000;
+
+
+    /*
+     * Keeps track of the previous
+     * totals so future animations
+     * can detect new votes.
+     */
+
+    let previousBoy = null;
+    let previousGirl = null;
 
 
     async function loadVotes() {
@@ -495,15 +537,18 @@
       try {
 
         /*
-         * Cache-busting parameter ensures
-         * we request fresh data.
+         * Add a cache-busting parameter
+         * to every request.
          */
 
         const separator =
-          CSV_URL.includes('?') ? '&' : '?';
+          API_URL.includes('?')
+            ? '&'
+            : '?';
+
 
         const url =
-          CSV_URL +
+          API_URL +
           separator +
           '_=' +
           Date.now();
@@ -519,28 +564,69 @@
 
 
         if (!response.ok) {
+
           throw new Error(
-            'HTTP ' + response.status
+            'HTTP ' +
+            response.status
           );
+
         }
 
 
-        const csv =
-          await response.text();
-
-
         const data =
-          parseVoteData(csv);
+          await response.json();
 
 
-        updateDashboard(data);
+        const boy =
+          Number(data.boy) || 0;
+
+
+        const girl =
+          Number(data.girl) || 0;
+
+
+        const total =
+          Number(data.total) ||
+          boy + girl;
+
+
+        const boyPercent =
+          total
+            ? Math.round(
+                (boy / total) * 100
+              )
+            : 0;
+
+
+        const girlPercent =
+          total
+            ? 100 - boyPercent
+            : 0;
+
+
+        updateDashboard({
+          boy,
+          girl,
+          total,
+          boyPercent,
+          girlPercent
+        });
+
+
+        previousBoy =
+          boy;
+
+
+        previousGirl =
+          girl;
 
 
         document
           .getElementById('status')
           .textContent =
             'Updated ' +
-            new Date().toLocaleTimeString();
+            new Date()
+              .toLocaleTimeString();
 
       }
 
@@ -562,97 +648,11 @@
     }
 
 
-    function parseVoteData(csv) {
-
-      const rows =
-        csv
-          .trim()
-          .split(/\r?\n/)
-          .map(
-            row =>
-              row
-                .split(',')
-                .map(
-                  value =>
-                    value
-                      .replace(/^"|"$/g, '')
-                      .trim()
-                )
-          );
-
-
-      let boy = 0;
-      let girl = 0;
-      let total = 0;
-
-
-      rows.forEach(row => {
-
-        if (row.length < 2) {
-          return;
-        }
-
-
-        const metric =
-          row[0].toLowerCase();
-
-
-        const value =
-          Number(row[1]) || 0;
-
-
-        if (metric === 'boy') {
-          boy = value;
-        }
-
-
-        if (metric === 'girl') {
-          girl = value;
-        }
-
-
-        if (metric === 'total') {
-          total = value;
-        }
-
-      });
-
+    function updateDashboard(data) {
 
       /*
-       * Protect against a missing Total row.
+       * COUNTS
        */
-
-      if (!total && (boy || girl)) {
-        total = boy + girl;
-      }
-
-
-      const boyPercent =
-        total
-          ? Math.round(
-              (boy / total) * 100
-            )
-          : 0;
-
-
-      const girlPercent =
-        total
-          ? 100 - boyPercent
-          : 0;
-
-
-      return {
-        boy,
-        girl,
-        total,
-        boyPercent,
-        girlPercent
-      };
-
-    }
-
-
-    function updateDashboard(data) {
 
       setText(
         'boyCount',
@@ -672,6 +672,10 @@
       );
 
 
+      /*
+       * PERCENTAGES
+       */
+
       setText(
         'boyPercent',
         data.boyPercent + '%'
@@ -684,20 +688,28 @@
       );
 
 
+      /*
+       * PROGRESS BARS
+       */
+
       document
-        .getElementById('boyProgress')
+        .getElementById(
+          'boyProgress'
+        )
         .style.width =
           data.boyPercent + '%';
 
 
       document
-        .getElementById('girlProgress')
+        .getElementById(
+          'girlProgress'
+        )
         .style.width =
           data.girlPercent + '%';
 
 
       /*
-       * Leader message
+       * LEADER
        */
 
       let leaderText =
@@ -706,10 +718,15 @@
 
       if (data.total > 0) {
 
-        if (data.boy > data.girl) {
+        if (
+          data.boy >
+          data.girl
+        ) {
 
           const difference =
-            data.boy - data.girl;
+            data.boy -
+            data.girl;
+
 
           leaderText =
             'Team Boy +' +
@@ -718,11 +735,14 @@
         }
 
         else if (
-          data.girl > data.boy
+          data.girl >
+          data.boy
         ) {
 
           const difference =
-            data.girl - data.boy;
+            data.girl -
+            data.boy;
+
 
           leaderText =
             'Team Girl +' +
@@ -733,7 +753,7 @@
         else {
 
           leaderText =
-            'It’s a Tie!';
+            "It's a Tie!";
 
         }
 
@@ -762,14 +782,15 @@
 
 
     /*
-     * Initial load.
+     * Load immediately when
+     * the page opens.
      */
 
     loadVotes();
 
 
     /*
-     * Automatic live updates.
+     * Then refresh automatically.
      */
 
     setInterval(
