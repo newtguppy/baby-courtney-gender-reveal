@@ -26,6 +26,11 @@
       box-sizing: border-box;
     }
 
+    html {
+      -webkit-text-size-adjust: 100%;
+      text-size-adjust: 100%;
+    }
+
     html,
     body {
       margin: 0;
@@ -560,43 +565,217 @@
         0 4px 14px rgba(0, 0, 0, 0.10);
     }
 
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+
+    .mobile-copy {
+      display: none;
+    }
+
     /* MOBILE */
 
-    @media (max-width: 700px) {
+    @media (max-width: 700px),
+           (max-height: 520px) and (max-width: 950px) {
+      html,
       body {
-        overflow: auto;
+        width: 100%;
+        height: auto;
+        min-height: 100%;
+        overflow-x: hidden;
+        overflow-y: auto;
+      }
+
+      .dashboard {
+        width: 100%;
+        height: auto;
+        min-height: 100svh;
+      }
+
+      .header {
+        padding: 16px 14px 14px;
+      }
+
+      .baby-name {
+        font-size: 23px;
+      }
+
+      .title {
+        max-width: 390px;
+        margin-right: auto;
+        margin-left: auto;
+        font-size: clamp(39px, 11.5vw, 52px);
+        line-height: 0.96;
+      }
+
+      .subtitle {
+        margin-top: 8px;
+        font-size: 16px;
+      }
+
+      .vote-area {
+        flex: none;
+        display: block;
+        min-height: 0;
+      }
+
+      .team {
+        width: 100%;
+        min-height: 0;
+        padding: 40px 18px 44px;
+      }
+
+      .baby-photo-card {
+        flex: 0 0 auto;
+        margin-bottom: 12px;
+      }
+
+      .baby-photo-frame {
+        flex: 0 0 auto;
+        width: min(46vw, 190px);
+        height: auto;
+        aspect-ratio: 1 / 1;
+        border-width: 5px;
+      }
+
+      .baby-photo-label {
+        margin-top: 9px;
+        font-size: 20px;
+      }
+
+      .team-label {
+        font-size: clamp(30px, 9vw, 40px);
+        letter-spacing: 3px;
+      }
+
+      .vote-count {
+        margin-top: 12px;
+        font-size: 96px;
+      }
+
+      .votes-label {
+        font-size: 14px;
+      }
+
+      .percentage {
+        font-size: 32px;
+      }
+
+      .progress-container {
+        width: min(84%, 360px);
+        margin-top: 14px;
+      }
+
+      .footer {
+        flex: none;
+        width: 100%;
+        min-height: 0;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 24px 12px;
+        padding: 28px 18px max(36px, env(safe-area-inset-bottom));
+      }
+
+      .footer-block {
+        flex: 0 0 auto;
+        width: 100%;
+      }
+
+      .footer-block:first-child {
+        grid-column: 1;
+        grid-row: 2;
+      }
+
+      .footer-block:last-child {
+        grid-column: 2;
+        grid-row: 2;
+      }
+
+      .footer-label {
+        font-size: 12px;
+      }
+
+      .footer-value {
+        font-size: clamp(24px, 7vw, 30px);
+        line-height: 1.08;
+      }
+
+      .qr-block {
+        grid-column: 1 / -1;
+        grid-row: 1;
+        flex: 0 0 auto;
+        width: 100%;
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .qr-image-link {
+        display: none;
+      }
+
+      .qr-copy {
+        width: 100%;
+        max-width: 340px;
+        text-align: center;
+      }
+
+      .desktop-copy {
+        display: none;
+      }
+
+      .mobile-copy {
+        display: inline;
+      }
+
+      .qr-title {
+        font-size: 26px;
+      }
+
+      .qr-subtitle {
+        margin-top: 6px;
+        font-size: 16px;
+      }
+
+      .vote-link {
+        min-width: 230px;
+        min-height: 46px;
+        margin-top: 13px;
+        padding: 12px 22px;
+        font-size: 16px;
+      }
+
+      .status.error {
+        right: 10px;
+        bottom: 10px;
+        left: 10px;
+        text-align: center;
+      }
+    }
+
+    @media print {
+      html,
+      body {
+        height: auto;
+        overflow: visible;
       }
 
       .dashboard {
         height: auto;
-
-        min-height: 100vh;
+        min-height: 0;
       }
 
       .vote-area {
-        grid-template-columns: 1fr;
+        display: block;
       }
 
-      .team {
-        min-height: 500px;
-      }
-
+      .team,
       .footer {
-        display: flex;
-
-        flex-direction: column;
-
-        gap: 18px;
-
-        padding: 24px;
-      }
-
-      .qr-block {
-        flex-direction: column;
-      }
-
-      .qr-copy {
-        text-align: center;
+        break-inside: avoid;
       }
     }
   </style>
@@ -774,7 +953,8 @@
         <div class="qr-copy">
 
           <div class="qr-title">
-            Scan to Vote
+            <span class="desktop-copy">Scan to Vote</span>
+            <span class="mobile-copy">Cast Your Vote</span>
           </div>
 
           <div class="qr-subtitle">
@@ -1094,81 +1274,5 @@
     );
   </script>
 
-</body>
-</html>
-<div class="percentage" id="girlPercent">0%</div>
-<div class="progress-container"><div class="progress" id="girlProgress"></div></div>
-</div>
-</section>
-
-<footer class="footer">
-<div class="footer-block">
-<div class="footer-label">Predictions Cast</div>
-<div class="footer-value" id="totalCount">0</div>
-</div>
-
-<div class="qr-block">
-<img class="qr-code" src="vote-qr.png?v=1" alt="Scan to cast your gender prediction">
-<div class="qr-copy">
-<div class="qr-title">Scan to Vote</div>
-<div class="qr-subtitle">Boy or girl?<br>Cast your prediction!</div>
-</div>
-</div>
-
-<div class="footer-block">
-<div class="footer-label">Current Leader</div>
-<div class="footer-value leader" id="leader">Waiting for votes</div>
-</div>
-</footer>
-</main>
-
-<div class="status" id="status">Connecting...</div>
-
-<script>
-const API_URL='https://baby-courtney-vote-api.tripods-timbre-2h.workers.dev';
-const REFRESH_INTERVAL=3000;
-
-async function loadVotes(){
-  try{
-    const separator=API_URL.includes('?')?'&':'?';
-    const url=API_URL+separator+'_='+Date.now();
-    const response=await fetch(url,{cache:'no-store'});
-    if(!response.ok) throw new Error('HTTP '+response.status);
-    const data=await response.json();
-    const boy=Number(data.boy)||0;
-    const girl=Number(data.girl)||0;
-    const total=Number(data.total)||boy+girl;
-    const boyPercent=total?Math.round((boy/total)*100):0;
-    const girlPercent=total?100-boyPercent:0;
-    updateDashboard({boy,girl,total,boyPercent,girlPercent});
-    document.getElementById('status').textContent='Updated '+new Date().toLocaleTimeString();
-  }catch(error){
-    console.error('Vote refresh failed:',error);
-    document.getElementById('status').textContent='Connection error';
-  }
-}
-
-function updateDashboard(data){
-  setText('boyCount',data.boy);
-  setText('girlCount',data.girl);
-  setText('totalCount',data.total);
-  setText('boyPercent',data.boyPercent+'%');
-  setText('girlPercent',data.girlPercent+'%');
-  document.getElementById('boyProgress').style.width=data.boyPercent+'%';
-  document.getElementById('girlProgress').style.width=data.girlPercent+'%';
-
-  let leaderText='Waiting for votes';
-  if(data.total>0){
-    if(data.boy>data.girl) leaderText='Team Boy +'+(data.boy-data.girl);
-    else if(data.girl>data.boy) leaderText='Team Girl +'+(data.girl-data.boy);
-    else leaderText="It's a Tie!";
-  }
-  setText('leader',leaderText);
-}
-
-function setText(id,value){document.getElementById(id).textContent=value}
-loadVotes();
-setInterval(loadVotes,REFRESH_INTERVAL);
-</script>
 </body>
 </html>
