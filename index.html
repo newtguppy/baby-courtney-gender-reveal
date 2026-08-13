@@ -39,7 +39,6 @@
 
     .header {
       text-align: center;
-
       background:
         linear-gradient(
           90deg,
@@ -47,49 +46,34 @@
           rgba(255, 255, 255, 0.98) 50%,
           rgba(255, 224, 235, 0.96)
         );
-
       padding: 18px 30px 15px;
-
-      border-bottom:
-        1px solid rgba(0, 0, 0, 0.05);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.05);
     }
 
     .baby-name {
       font-family:
         Georgia,
-        'Times New Roman',
+        "Times New Roman",
         serif;
-
       color: #173f61;
-
-      font-size:
-        clamp(22px, 2vw, 38px);
-
+      font-size: clamp(22px, 2vw, 38px);
       margin-bottom: 3px;
     }
 
     .title {
       margin: 0;
-
       font-family:
         Georgia,
-        'Times New Roman',
+        "Times New Roman",
         serif;
-
-      font-size:
-        clamp(38px, 4.2vw, 76px);
-
+      font-size: clamp(38px, 4.2vw, 76px);
       color: #173f61;
-
       line-height: 1.02;
     }
 
     .subtitle {
       margin-top: 7px;
-
-      font-size:
-        clamp(16px, 1.5vw, 26px);
-
+      font-size: clamp(16px, 1.5vw, 26px);
       color: #766b65;
     }
 
@@ -97,28 +81,18 @@
 
     .vote-area {
       flex: 1;
-
       display: grid;
-
-      grid-template-columns:
-        1fr 1fr;
-
+      grid-template-columns: 1fr 1fr;
       min-height: 0;
     }
 
     .team {
       display: flex;
-
       flex-direction: column;
-
       align-items: center;
-
       justify-content: center;
-
       text-align: center;
-
       position: relative;
-
       padding: 22px 28px;
     }
 
@@ -180,17 +154,12 @@
     }
 
     .baby-photo-frame {
-      width: clamp(95px, 8vw, 145px);
-      height: clamp(95px, 8vw, 145px);
-
+      width: clamp(105px, 8.5vw, 155px);
+      height: clamp(105px, 8.5vw, 155px);
       border-radius: 50%;
       overflow: hidden;
-
       background: white;
-
-      border:
-        5px solid rgba(255, 255, 255, 0.95);
-
+      border: 5px solid rgba(255, 255, 255, 0.95);
       box-shadow:
         0 8px 22px rgba(0, 0, 0, 0.13);
     }
@@ -198,27 +167,26 @@
     .baby-photo-frame img {
       width: 100%;
       height: 100%;
-
       object-fit: cover;
-
-      object-position: center 30%;
-
       display: block;
+    }
+
+    .boy .baby-photo-frame img {
+      object-position: center 30%;
+    }
+
+    .girl .baby-photo-frame img {
+      object-position: center 30%;
     }
 
     .baby-photo-label {
       margin-top: 8px;
-
       font-family:
         Georgia,
-        'Times New Roman',
+        "Times New Roman",
         serif;
-
-      font-size:
-        clamp(14px, 1.1vw, 20px);
-
+      font-size: clamp(14px, 1.1vw, 20px);
       font-style: italic;
-
       color: #716661;
     }
 
@@ -232,125 +200,67 @@
         0 8px 22px rgba(223, 113, 149, 0.24);
     }
 
-    /* DAD PLACEHOLDER */
-
-    .dad-placeholder {
-      width: 100%;
-      height: 100%;
-
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      background:
-        linear-gradient(
-          145deg,
-          #f9fdff,
-          #dcefff
-        );
-
-      font-size:
-        clamp(38px, 4vw, 62px);
-    }
-
     /* TEAM CONTENT */
 
     .team-label {
-      font-size:
-        clamp(27px, 2.6vw, 48px);
-
+      font-size: clamp(27px, 2.6vw, 48px);
       font-weight: 700;
-
       text-transform: uppercase;
-
       letter-spacing: 4px;
     }
 
     .vote-count {
-      font-size:
-        clamp(90px, 11vw, 205px);
-
+      font-size: clamp(90px, 11vw, 205px);
       font-weight: 800;
-
       line-height: 0.88;
-
       margin: 12px 0 6px;
     }
 
     .votes-label {
       text-transform: uppercase;
-
       letter-spacing: 3px;
-
       color: #756d69;
-
-      font-size:
-        clamp(13px, 1.2vw, 21px);
+      font-size: clamp(13px, 1.2vw, 21px);
     }
 
     .percentage {
       margin-top: 8px;
-
-      font-size:
-        clamp(27px, 2.5vw, 45px);
-
+      font-size: clamp(27px, 2.5vw, 45px);
       font-weight: 700;
-
       color: #504845;
     }
 
     /* PROGRESS */
 
     .progress-container {
-      width:
-        min(72%, 520px);
-
+      width: min(72%, 520px);
       height: 15px;
-
       margin-top: 16px;
-
       border-radius: 20px;
-
       overflow: hidden;
-
-      background:
-        rgba(255, 255, 255, 0.8);
-
+      background: rgba(255, 255, 255, 0.8);
       box-shadow:
-        inset 0 1px 4px
-        rgba(0, 0, 0, 0.08);
+        inset 0 1px 4px rgba(0, 0, 0, 0.08);
     }
 
     .progress {
       height: 100%;
-
       width: 0%;
-
       border-radius: 20px;
-
-      transition:
-        width 0.7s ease;
+      transition: width 0.7s ease;
     }
 
     /* FOOTER */
 
     .footer {
       background: white;
-
       min-height: 84px;
-
       display: flex;
-
       justify-content: center;
-
       align-items: center;
-
       gap: 90px;
-
       padding: 12px 30px;
-
-      border-top:
-        1px solid #eee7e2;
+      border-top: 1px solid #eee7e2;
     }
 
     .footer-block {
@@ -359,23 +269,15 @@
 
     .footer-label {
       color: #82766f;
-
       text-transform: uppercase;
-
       letter-spacing: 2px;
-
-      font-size:
-        clamp(11px, 0.9vw, 16px);
+      font-size: clamp(11px, 0.9vw, 16px);
     }
 
     .footer-value {
       color: #173f61;
-
       font-weight: 800;
-
-      font-size:
-        clamp(24px, 2.1vw, 38px);
-
+      font-size: clamp(24px, 2.1vw, 38px);
       margin-top: 3px;
     }
 
@@ -387,20 +289,15 @@
 
     .status {
       position: fixed;
-
       bottom: 5px;
-
       right: 8px;
-
       color: #aaa;
-
       font-size: 9px;
     }
 
     /* MOBILE */
 
     @media (max-width: 700px) {
-
       body {
         overflow: auto;
       }
@@ -410,7 +307,7 @@
       }
 
       .team {
-        min-height: 420px;
+        min-height: 430px;
       }
 
       .footer {
@@ -451,9 +348,10 @@
         <div class="baby-photo-card">
 
           <div class="baby-photo-frame">
-            <div class="dad-placeholder">
-              💙
-            </div>
+            <img
+              src="dad-baby.JPEG"
+              alt="Dad as a baby"
+            >
           </div>
 
           <div class="baby-photo-label">
@@ -600,8 +498,8 @@
   <script>
 
     /*
-     * REPLACE THIS VALUE WITH YOUR
-     * ACTUAL CLOUDFLARE WORKER URL.
+     * Replace with your actual
+     * Cloudflare Worker URL.
      */
 
     const API_URL =
@@ -609,7 +507,7 @@
 
 
     /*
-     * Check the API every 3 seconds.
+     * Poll every 3 seconds.
      */
 
     const REFRESH_INTERVAL =
