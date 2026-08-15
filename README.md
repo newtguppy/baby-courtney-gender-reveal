@@ -1,136 +1,114 @@
 # Baby Courtney Splish Splash Gender Reveal
 
-Live boy-or-girl prediction dashboard for the Baby Courtney gender reveal and pool party.
+I use this project to run a live boy-or-girl prediction dashboard for the Baby Courtney gender reveal and pool party. Guests vote through a Google Form, and the dashboard displays the results in near real time.
 
-Guests vote through a Google Form using either a QR code or a direct link. Responses are written to Google Sheets, aggregate totals are read through the Google Sheets API by a Cloudflare Worker, and the live results are displayed on a responsive GitHub Pages dashboard at the custom domain.
+## Production links
 
-## Live Links
+| Resource | URL |
+|---|---|
+| Dashboard | [https://vote.courtneyfam.com](https://vote.courtneyfam.com/) |
+| Legacy dashboard URL | [https://vote.courtney.biz](https://vote.courtney.biz/) |
+| Voting form | [https://forms.gle/dVeoDoYPM2qgviJa9](https://forms.gle/dVeoDoYPM2qgviJa9) |
 
-- **Dashboard:** https://vote.courtney.biz
-- **Voting Form:** https://forms.gle/dVeoDoYPM2qgviJa9
+`https://vote.courtney.biz` is a permanent legacy address. GoDaddy redirects it to `https://vote.courtneyfam.com` with an HTTP `301` response.
 
-## Features
+## System overview
 
-- Live Team Boy and Team Girl vote counts
-- Live percentages and progress bars
-- Total predictions cast
-- Current leader display
-- "Voting Is Open" state before the first vote
-- QR code linking directly to the voting form
-- Direct **Open Voting Form** button for desktop/mobile visitors
-- Dad and Mom baby photos
-- Responsive desktop, TV, and mobile layouts
-- Splish Splash pool-party visual theme
-- Automatic refresh every 3 seconds
-- Connection-loss warning if the live API becomes unavailable
-- Custom domain with HTTPS
-
-## Architecture
+I use the following request path:
 
 ```text
 Guest
-  |
-  | scans QR code or opens voting link
-  v
-Google Form
-  |
-  | writes response
-  v
-Google Sheets
-  |
-  | Data tab
-  | Dashboard Data formulas
-  v
-Google Sheets API
-  |
-  | authenticated with a read-only service account
-  v
-Cloudflare Worker
-  |
-  | returns aggregate JSON
-  v
-GitHub Pages
-  |
-  v
-https://vote.courtney.biz
-  |
-  v
-TV / Desktop / Mobile Browser
+  -> Google Form
+  -> Google Sheets
+  -> Google Sheets API
+  -> Cloudflare Worker
+  -> GitHub Pages
+  -> https://vote.courtneyfam.com
 ```
 
-## Technology Stack
+The dashboard:
+
+- Displays live Team Boy and Team Girl totals
+- Calculates vote percentages and the current leader
+- Refreshes automatically every three seconds
+- Provides a QR code and direct link to the voting form
+- Supports desktop, television, and mobile displays
+- Shows a connection warning when the live API is unavailable
+- Uses HTTPS on the production domain
+
+## Components
 
 | Component | Purpose |
 |---|---|
-| Google Forms | Guest voting interface |
+| Google Forms | Collects guest predictions |
 | Google Sheets | Stores responses and calculates aggregate totals |
-| Google Sheets API | Provides current aggregate values |
-| Google Cloud Service Account | Read-only authentication to the spreadsheet |
-| Cloudflare Worker | Public JSON API between Sheets and the website |
+| Google Sheets API | Provides aggregate values to the Cloudflare Worker |
+| Google Cloud service account | Authenticates read-only spreadsheet requests |
+| Cloudflare Worker | Returns public aggregate vote data as JSON |
 | GitHub Pages | Hosts the static dashboard |
-| GoDaddy DNS | Hosts DNS for `courtney.biz` |
-| GitHub Pages Custom Domain | Publishes the dashboard at `vote.courtney.biz` |
+| GoDaddy DNS | Manages the production CNAME and legacy redirect |
 
-## Repository Files
+## Repository
 
-The repository should contain at least:
+Repository name:
+
+```text
+baby-courtney-gender-reveal
+```
+
+Required files:
 
 ```text
 baby-courtney-gender-reveal/
-├── CNAME
-├── README.md
-├── index.html
-├── dad-baby.JPEG
-├── mom-baby.jpg
-└── vote-qr.png
-```
-
-Optional design/reference assets may also be stored in the repository, such as the Splish Splash Google Forms header.
-
-### `index.html`
-
-Complete dashboard application containing:
-
-- layout and responsive CSS
-- Splish Splash pool-party theme
-- live vote API integration
-- three-second polling
-- QR code display
-- direct voting link
-- current leader logic
-- connection-error handling
-
-### `dad-baby.JPEG`
-
-Dad's baby photo. Filename and capitalization matter because web asset paths are case-sensitive.
-
-### `mom-baby.jpg`
-
-Mom's baby photo.
-
-### `vote-qr.png`
-
-QR code that points to:
-
-```text
-https://forms.gle/dVeoDoYPM2qgviJa9
+â”œâ”€â”€ CNAME
+â”œâ”€â”€ README.md
+â”œâ”€â”€ index.html
+â”œâ”€â”€ dad-baby.JPEG
+â”œâ”€â”€ mom-baby.jpg
+â””â”€â”€ vote-qr.png
 ```
 
 ### `CNAME`
 
-Contains:
+The file must contain one line:
 
 ```text
-vote.courtney.biz
+vote.courtneyfam.com
 ```
+
+GitHub Pages supports one custom domain in this file. I manage the old `vote.courtney.biz` address through GoDaddy forwarding, not through a second CNAME entry.
+
+### `index.html`
+
+This file contains the complete dashboard application, including:
+
+- Responsive layout and visual styling
+- Live vote API integration
+- Three-second polling
+- Vote count and percentage calculations
+- Current leader logic
+- Voting form controls
+- Connection-error handling
+
+### Image files
+
+| File | Purpose |
+|---|---|
+| `dad-baby.JPEG` | Dad's baby photo |
+| `mom-baby.jpg` | Mom's baby photo |
+| `vote-qr.png` | QR code for the Google Form |
+
+File names and capitalization must remain exact because GitHub Pages asset paths are case-sensitive.
 
 ## Google Form
 
-### Form
+Form name:
 
-**Baby Courtney Gender Prediction**
+```text
+Baby Courtney Gender Prediction
+```
 
-Primary question:
+Question:
 
 ```text
 What's your prediction?
@@ -143,111 +121,76 @@ Boy
 Girl
 ```
 
-The form is intentionally simple so guests can vote quickly.
-
-### Public Voting Link
+Public voting URL:
 
 ```text
 https://forms.gle/dVeoDoYPM2qgviJa9
 ```
 
-The QR code and the website's direct voting button both point to this URL.
+Both the dashboard button and `vote-qr.png` use this URL.
 
 ## Google Sheets
 
-The response workbook contains two important tabs.
+The response workbook contains two required sheets.
 
 ### `Data`
 
-This tab is owned by Google Forms.
+Google Forms owns this sheet. I do not rename its columns or change its structure.
 
-Expected structure:
-
-| Timestamp | What's your prediction? |
+| Column | Value |
 |---|---|
-| Form-generated | Boy or Girl |
-
-Do not change the headers or restructure this tab.
+| Timestamp | Form-generated submission time |
+| What's your prediction? | `Boy` or `Girl` |
 
 ### `Dashboard Data`
 
-This tab exposes only aggregate values used by the dashboard.
+This sheet exposes only aggregate values to the dashboard.
 
-| Metric | Value |
-|---|---:|
-| Boy | Formula |
-| Girl | Formula |
-| Total | Formula |
+| Metric | Formula |
+|---|---|
+| Boy | `=COUNTIF(Data!B:B,"Boy*")` |
+| Girl | `=COUNTIF(Data!B:B,"Girl*")` |
+| Total | `=SUM(B2:B3)` |
 
-Recommended formulas:
-
-**Boy**
-
-```gs
-=COUNTIF(Data!B:B,"Boy*")
-```
-
-**Girl**
-
-```gs
-=COUNTIF(Data!B:B,"Girl*")
-```
-
-**Total**
-
-```gs
-=SUM(B2:B3)
-```
-
-The wildcard allows the formulas to keep working if the form choices include additional text or emoji after "Boy" or "Girl."
+The wildcard allows the count formulas to continue working if I add text or emoji after `Boy` or `Girl` in the form choices.
 
 ## Google Cloud
 
-A Google Cloud project supports the live dashboard.
-
 ### Google Sheets API
 
-The **Google Sheets API** must remain enabled.
+The Google Sheets API must remain enabled in the Google Cloud project.
 
-### Service Account
+### Service account
 
-Service account:
+Service account name:
 
 ```text
 gender-reveal-dashboard
 ```
 
-Purpose:
+I share the response spreadsheet directly with this service account using Viewer access. The account requires read-only access to the aggregate vote totals.
 
-```text
-Read-only access to Baby Courtney gender reveal vote totals
-```
+### Service account key
 
-The Google Sheet is shared directly with this service account using **Viewer** access.
+The Cloudflare Worker uses a JSON service-account key for authentication. I treat the key as a password and never commit it to GitHub.
 
-### Service Account Key
+If the key is exposed:
 
-A JSON service-account key is used by Cloudflare for authentication.
-
-**Never commit the JSON key or private key to GitHub.** Treat it like a password.
-
-If the key is ever exposed:
-
-1. Delete/revoke the exposed key in Google Cloud.
+1. Revoke or delete it in Google Cloud.
 2. Create a replacement key.
 3. Update the corresponding Cloudflare secret.
 
 ## Cloudflare Worker
 
-Worker:
+Worker name:
 
 ```text
 baby-courtney-vote-api
 ```
 
-The Worker authenticates to Google using the service account, reads the `Dashboard Data` range, and returns only aggregate values.
+The Worker authenticates to Google, reads `Dashboard Data!A1:B4`, and returns aggregate values only.
 
-Typical response:
+Example response:
 
 ```json
 {
@@ -258,83 +201,97 @@ Typical response:
 }
 ```
 
-The website polls this endpoint every 3 seconds.
-
-### Worker Variables and Secrets
+### Worker configuration
 
 | Variable | Type | Purpose |
 |---|---|---|
 | `GOOGLE_CLIENT_EMAIL` | Secret | Service account email |
 | `GOOGLE_PRIVATE_KEY` | Secret | Service account private key |
-| `GOOGLE_SPREADSHEET_ID` | Secret | ID of the response spreadsheet |
+| `GOOGLE_SPREADSHEET_ID` | Secret | Response spreadsheet ID |
 | `GOOGLE_SHEET_RANGE` | Text | `Dashboard Data!A1:B4` |
 
-No secret values belong in this repository.
+I do not store secret values in this repository.
 
 ## GitHub Pages
 
-Repository:
-
-```text
-baby-courtney-gender-reveal
-```
-
-Publishing configuration:
+I publish the dashboard with these settings:
 
 | Setting | Value |
 |---|---|
 | Source | Deploy from a branch |
 | Branch | `main` |
 | Folder | `/ (root)` |
-| Custom domain | `vote.courtney.biz` |
+| Custom domain | `vote.courtneyfam.com` |
 | HTTPS | Enforced |
 
-Changes committed to `main` are published through GitHub Pages.
+Commits to `main` publish automatically.
 
-## Custom Domain
+## Domain configuration
 
-Custom domain:
+### Production domain
 
-```text
-vote.courtney.biz
-```
-
-GoDaddy DNS record:
+In the DNS zone for `courtneyfam.com`, I use this record:
 
 | Type | Name | Value |
 |---|---|---|
 | CNAME | `vote` | `newtguppy.github.io` |
 
-The root domain `courtney.biz` is not changed by this configuration.
-
-### DNS Verification
-
-From macOS:
+I verify the record from macOS with:
 
 ```bash
-dig vote.courtney.biz CNAME
+dig vote.courtneyfam.com CNAME +short
 ```
 
 Expected result:
 
 ```text
-vote.courtney.biz.  IN  CNAME  newtguppy.github.io.
+newtguppy.github.io.
 ```
 
-## Dashboard Behavior
+### Legacy redirect
 
-### Before Any Votes
+In GoDaddy forwarding for `courtney.biz`, I use this configuration:
 
-The footer displays:
+| Setting | Value |
+|---|---|
+| Subdomain | `vote` |
+| Destination | `https://vote.courtneyfam.com` |
+| Type | Permanent (`301`) |
+| Forwarding | Forward only |
+
+I do not point `vote.courtney.biz` directly to GitHub Pages. GitHub Pages recognizes `vote.courtneyfam.com` as the repository's only custom domain.
+
+GoDaddy automatically provisions HTTPS for the forwarding address. Activation can take a few hours, and global DNS propagation can take up to 48 hours.
+
+I verify the redirect with:
+
+```bash
+curl -IL https://vote.courtney.biz
+```
+
+The response should contain a redirect to the production address followed by a successful response:
+
+```text
+HTTP/2 301
+location: https://vote.courtneyfam.com
+
+HTTP/2 200
+```
+
+## Dashboard behavior
+
+### Before the first vote
+
+The dashboard displays:
 
 ```text
 Voting Status
 Voting Is Open
 ```
 
-### After Voting Begins
+### After voting begins
 
-The status becomes one of:
+The dashboard displays one of these states:
 
 ```text
 Current Leader
@@ -346,27 +303,17 @@ Current Leader
 Team Girl +N
 ```
 
-or, when tied:
-
 ```text
 It's a Tie!
 ```
 
-### Live Refresh
+### Live refresh
 
-The dashboard polls the Cloudflare Worker every:
+The dashboard polls the Cloudflare Worker every `3000 ms`. New votes should appear without a manual refresh.
 
-```text
-3000 ms
-```
+### Connection failure
 
-No manual browser refresh should be required for new votes.
-
-### Connection Failure
-
-Normal technical update timestamps are hidden.
-
-If the API becomes unreachable, the dashboard displays:
+If the API is unavailable, the dashboard displays:
 
 ```text
 Connection lost. Reconnecting...
@@ -374,56 +321,32 @@ Connection lost. Reconnecting...
 
 The dashboard continues retrying automatically.
 
-## Responsive Behavior
+## Responsive behavior
 
-### TV / Desktop
+### Television and desktop
 
-The full dashboard includes:
+The full layout displays:
 
-- both baby photos
-- Team Boy / Team Girl panels
-- vote counts
-- percentages
-- progress bars
-- QR code
-- direct voting button
-- total predictions
-- voting status/current leader
+- Both baby photos
+- Team Boy and Team Girl panels
+- Vote counts and percentages
+- Progress bars
+- QR code and voting button
+- Total predictions
+- Voting status or current leader
 
 ### Mobile
 
-The layout stacks vertically.
+The layout stacks vertically. The QR code may be hidden because a user cannot conveniently scan a QR code displayed on the same phone. The direct voting button remains available.
 
-The QR code may be hidden on narrow screens because a user already viewing the site on a phone cannot conveniently scan a QR code displayed on that same phone.
+## Updating content
 
-The direct **Open Voting Form** control remains available.
-
-## Theme
-
-The design follows the **Splish Splash** pool-party gender reveal invitation.
-
-Core visual elements include:
-
-- watercolor blue and pink
-- pool-water accents
-- water splashes
-- pool floats
-- swimwear/clothesline details
-- navy typography
-- soft cream/gold accents
-- coordinated Team Boy and Team Girl panels
-
-A matching Google Forms header is used so the form and dashboard feel like one event experience.
-
-## Updating Baby Photos
-
-To replace a photo while keeping the same filename:
+### Replace a baby photo
 
 1. Upload the replacement image to GitHub.
-2. Keep the expected filename:
-   - `dad-baby.JPEG`
-   - `mom-baby.jpg`
-3. Increment the cache-busting version in `index.html`.
+2. Preserve the expected file name.
+3. Increment the image's cache-busting version in `index.html`.
+4. Commit the change to `main`.
 
 Example:
 
@@ -431,31 +354,27 @@ Example:
 <img src="dad-baby.JPEG?v=5" alt="Dad as a baby">
 ```
 
-Changing the `?v=` number forces browsers to retrieve the new image instead of displaying an older cached copy.
+### Change the voting form URL
 
-## Updating the Voting Form URL
-
-If the Google Form URL ever changes:
-
-1. Update every voting-form link in `index.html`.
+1. Update every voting-form URL in `index.html`.
 2. Generate a new QR code.
 3. Replace `vote-qr.png`.
-4. Increment the QR cache-busting version in `index.html`.
+4. Increment the QR code's cache-busting version in `index.html`.
 5. Commit the changes to `main`.
-6. Test both the QR code and direct voting button.
+6. Test the QR code and direct voting button.
 
-## Resetting Test Votes
+## Resetting test votes
 
 Before the party:
 
 1. Open the Google Sheet.
-2. Open the `Data` tab.
-3. Delete only the test-response rows beginning at row 2.
-4. Keep the header row.
-5. Do not delete the `Data` sheet.
-6. Do not delete the `Dashboard Data` formulas.
+2. Open the `Data` sheet.
+3. Delete test-response rows beginning with row 2.
+4. Preserve the header row.
+5. Preserve the `Data` sheet.
+6. Preserve the formulas in `Dashboard Data`.
 
-After deleting the test rows, the dashboard should automatically return to:
+The dashboard should automatically return to:
 
 ```text
 Team Boy: 0
@@ -464,145 +383,130 @@ Predictions Cast: 0
 Voting Is Open
 ```
 
-## Party-Day Checklist
+## Party-day checklist
 
-- Confirm `https://vote.courtney.biz` loads over HTTPS.
+- Confirm `https://vote.courtneyfam.com` loads over HTTPS.
+- Confirm `https://vote.courtney.biz` redirects to the production address.
 - Confirm the Google Form accepts responses.
 - Confirm the Cloudflare Worker returns current JSON.
-- Confirm one Boy test vote appears automatically.
-- Confirm one Girl test vote appears automatically.
-- Delete all test votes.
-- Verify the dashboard returns to 0 / 0.
-- Confirm the QR code scans from the TV.
+- Submit one Boy test vote and confirm it appears.
+- Submit one Girl test vote and confirm it appears.
+- Delete all test votes and confirm the dashboard returns to `0 / 0`.
+- Confirm the QR code scans from the television.
 - Confirm the direct voting button works.
 - Test the dashboard from a phone.
-- Connect the laptop to the TV using HDMI.
-- Use browser full-screen mode.
-- Set browser zoom to 100%.
-- Disable laptop sleep.
-- Disable screen locking.
-- Disable display dimming.
-- Disable notifications.
-- Keep the laptop connected to power.
-- Confirm Wi-Fi coverage at the TV and guest area.
+- Connect the laptop to the television through HDMI.
+- Use browser full-screen mode at 100% zoom.
+- Disable sleep, screen locking, display dimming, and notifications.
+- Connect the laptop to power.
+- Confirm Wi-Fi coverage at the display and guest area.
 - Keep a phone hotspot available as a backup.
 
 ## Troubleshooting
 
-### Vote appears in Google Sheets but not on the dashboard
+### The legacy address returns a GitHub 404
 
-Check in this order:
+Confirm that GoDaddy forwards `vote.courtney.biz` to `https://vote.courtneyfam.com`. The old address must not use a CNAME that points directly to `newtguppy.github.io`.
 
-1. Confirm the response exists in `Data`.
-2. Confirm `Dashboard Data` updated.
-3. Open the Cloudflare Worker URL and confirm the JSON contains the new counts.
-4. If the Worker is current but the dashboard is not, inspect the browser console/network request.
-5. Force refresh the page.
+If the forwarding configuration is correct, allow a few hours for HTTPS activation and up to 48 hours for global propagation.
 
-macOS Safari:
-
-```text
-Option + Command + R
-```
-
-### Dashboard shows 0 / 0 but Worker JSON is correct
-
-Confirm the `API_URL` in `index.html` is the correct Cloudflare Worker URL.
-
-### Baby photo does not update
-
-Increment its `?v=` cache-busting parameter in `index.html`.
-
-### Custom domain does not resolve
+### The production domain does not resolve
 
 Run:
 
 ```bash
-dig vote.courtney.biz CNAME
+dig vote.courtneyfam.com CNAME +short
 ```
 
-Confirm it points to:
+Confirm that the result is:
 
 ```text
 newtguppy.github.io.
 ```
 
-### GitHub reports an invalid DNS configuration
+Also confirm that the GitHub Pages custom domain is `vote.courtneyfam.com` and that the repository's `CNAME` file contains the same value.
 
-Confirm GoDaddy contains:
+### GitHub reports invalid DNS configuration
+
+Confirm that the `courtneyfam.com` DNS zone contains:
 
 ```text
-CNAME
+Type: CNAME
 Name: vote
 Value: newtguppy.github.io
 ```
 
-### API says Google Sheets access failed
+### A vote appears in Google Sheets but not on the dashboard
 
-Verify:
+Check the system in this order:
 
-- Google Sheets API is enabled.
-- The service account still exists.
-- The spreadsheet is still shared with the service account as Viewer.
+1. Confirm that the response exists in `Data`.
+2. Confirm that `Dashboard Data` updated.
+3. Open the Cloudflare Worker URL and inspect its JSON.
+4. If the Worker is current, inspect the dashboard's browser console and network requests.
+5. Force-refresh the page.
+
+In Safari on macOS, use:
+
+```text
+Option + Command + R
+```
+
+### The dashboard displays `0 / 0`, but the Worker is correct
+
+Confirm that `API_URL` in `index.html` contains the correct Cloudflare Worker URL.
+
+### A baby photo does not update
+
+Increment the image's `?v=` cache-busting parameter in `index.html`, commit the change, and force-refresh the page.
+
+### The Worker cannot access Google Sheets
+
+Confirm that:
+
+- The Google Sheets API is enabled.
+- The service account exists.
+- The spreadsheet is shared with the service account as Viewer.
 - `GOOGLE_SPREADSHEET_ID` is correct.
 - `GOOGLE_SHEET_RANGE` is `Dashboard Data!A1:B4`.
-- The private key stored in Cloudflare is valid.
+- The Cloudflare private-key secret is valid.
 
 ## Security
 
-The repository must never contain:
+I never store these values in the repository:
 
 - Google service-account JSON files
 - Google private keys
 - Cloudflare secrets
 - OAuth tokens
-- passwords
+- Passwords
 
-The website itself is intentionally public because guests need to access it.
+The dashboard is intentionally public. The Cloudflare Worker exposes aggregate voting data only and does not expose individual responses.
 
-The Cloudflare Worker exposes only aggregate voting data and does not need to expose individual Google Form responses.
+## Repository visibility
 
-## Repository Visibility
+The repository may be public or private if the GitHub account plan supports GitHub Pages for that visibility level. The website remains publicly accessible even if the source repository is private.
 
-The source repository may be public or private depending on the GitHub account plan.
+Before changing repository visibility, I confirm that the GitHub account plan supports GitHub Pages from private repositories. I do not assume that a private repository creates a private website.
 
-Important considerations:
+## Current architecture
 
-- GitHub Free supports Pages from public repositories.
-- GitHub Pro and eligible paid organization plans support Pages from private repositories.
-- A Pages website may still be publicly accessible even when its source repository is private.
-- Making a repository private on an account that does not support Pages from private repositories will unpublish the Pages site.
-- Never assume that making the repository private also makes the website private.
+Google Apps Script is not part of the production solution. I replaced the early Apps Script prototype after Google Advanced Protection blocked the required authorization flow.
 
-Before changing repository visibility, confirm the GitHub account plan supports GitHub Pages from private repositories.
-
-## Deprecated / Removed Architecture
-
-Google Apps Script is **not used** by the current solution.
-
-An early prototype used Apps Script, but it was replaced after Google Advanced Protection blocked the required authorization flow.
-
-Current production architecture:
+The active architecture is:
 
 ```text
 Google Form
-  ->
-Google Sheet
-  ->
-Google Sheets API
-  ->
-Cloudflare Worker
-  ->
-GitHub Pages
-  ->
-vote.courtney.biz
+  -> Google Sheet
+  -> Google Sheets API
+  -> Cloudflare Worker
+  -> GitHub Pages
+  -> https://vote.courtneyfam.com
 ```
 
-The old Apps Script project can remain deleted.
+## Maintenance requirements
 
-## Maintenance Summary
-
-For normal operation, the components that must remain active are:
+I keep these components active:
 
 1. Google Form
 2. Google response Sheet
@@ -611,9 +515,5 @@ For normal operation, the components that must remain active are:
 5. Google service account
 6. Cloudflare Worker and secrets
 7. GitHub repository and Pages deployment
-8. GoDaddy CNAME record
-9. `vote.courtney.biz`
-
----
-
-Built for the Baby Courtney Splish Splash Gender Reveal.
+8. `vote.courtneyfam.com` CNAME
+9. `vote.courtney.biz` permanent redirect
